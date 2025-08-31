@@ -1,12 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
-	"net/url"
-	"net/http"
-	"encoding/json"
 	"io/ioutil"
+	"net/http"
+	"net/url"
 	"os"
 	"strings"
 )
@@ -84,7 +84,7 @@ func main() {
 	}
 
 	text := strings.Join(args, " ")
-	
+
 	var targetLang string
 	if *englishFlag {
 		targetLang = "en"
