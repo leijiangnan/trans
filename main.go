@@ -65,15 +65,23 @@ func translate(text, targetLang string) (string, error) {
 
 func main() {
 	var (
-		englishFlag = flag.Bool("e", false, "将中文翻译成英文")
-		chineseFlag = flag.Bool("c", false, "将英文翻译成中文")
+		englishFlag     = flag.Bool("e", false, "将中文翻译成英文")
+		chineseFlag     = flag.Bool("c", false, "将英文翻译成中文")
+		interactiveFlag = flag.Bool("i", false, "进入交互式翻译模式")
 	)
 	flag.Parse()
+
+	// 检查是否使用了交互模式
+	if *interactiveFlag {
+		InteractiveTranslate()
+		return
+	}
 
 	if !*englishFlag && !*chineseFlag {
 		fmt.Println("使用方法:")
 		fmt.Println("  trans -e <中文文本>    # 将中文翻译成英文")
 		fmt.Println("  trans -c <英文文本>    # 将英文翻译成中文")
+		fmt.Println("  trans -i               # 进入交互式翻译模式")
 		os.Exit(1)
 	}
 
