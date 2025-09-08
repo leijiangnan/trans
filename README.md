@@ -2,6 +2,12 @@
 
 一个简单的命令行翻译工具，支持中英文互译和交互式翻译。
 
+### 环境变量(交互模式需要API_KEY)
+```bash
+export ANTHROPIC_BASE_URL=https://api.moonshot.cn/anthropic
+export ANTHROPIC_API_KEY=sk-DZdvzKifi3BbalHjXFInqkG
+````
+
 ## 安装
 
 ```bash
