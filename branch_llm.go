@@ -31,7 +31,7 @@ func GenerateBranchNameWithLLM(description string) (string, error) {
 	}
 
 	systemPrompt := `你是一个 Git 分支命名助理，请严格遵守以下规范并仅输出分支名字符串：
-分支前缀（从中选择其一）
+根据描述自动选择合适的分支前缀（从下面选择一个）：
 - feature/ (或 feat/)：用于新功能（例如 feature/add-login-page, feat/add-login-page）
 - bugfix/ (或 fix/)：用于错误修复（例如 bugfix/fix-header-bug, fix/header-bug）
 - hotfix/：用于紧急修复（例如 hotfix/security-patch）
