@@ -68,6 +68,7 @@ func main() {
 		englishFlag     = flag.Bool("e", false, "将中文翻译成英文")
 		chineseFlag     = flag.Bool("c", false, "将英文翻译成中文")
 		interactiveFlag = flag.Bool("i", false, "进入交互式翻译模式")
+		branchGenFlag   = flag.Bool("g", false, "根据描述生成规范化 git 分支名（调用大模型）")
 	)
 	flag.Parse()
 
@@ -77,11 +78,28 @@ func main() {
 		return
 	}
 
+	// 根据描述生成 git 分支名（仅调用大模型，失败报错）
+	if *branchGenFlag {
+		desc := strings.TrimSpace(strings.Join(flag.Args(), " "))
+		if desc == "" {
+			fmt.Println("错误: 请提供分支描述，例如：trans -g \"新增登录页面\"")
+			os.Exit(1)
+		}
+		name, err := GenerateBranchNameWithLLM(desc)
+		if err != nil || strings.TrimSpace(name) == "" {
+			fmt.Printf("生成分支名失败: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Println(strings.TrimSpace(name))
+		return
+	}
+
 	if !*englishFlag && !*chineseFlag {
 		fmt.Println("使用方法:")
 		fmt.Println("  trans -e <中文文本>    # 将中文翻译成英文")
 		fmt.Println("  trans -c <英文文本>    # 将英文翻译成中文")
 		fmt.Println("  trans -i               # 进入交互式翻译模式")
+		fmt.Println("  trans -g <描述>        # 根据描述生成规范化 git 分支名（调用大模型）")
 		os.Exit(1)
 	}
 

@@ -43,3 +43,6 @@ Thumbs.db
 
 # Build output
 /trans
+
+# Local environment files (do not commit)
+.env
